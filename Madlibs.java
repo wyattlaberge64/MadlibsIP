@@ -18,11 +18,20 @@ public class Madlibs {
 		static String prompt = null;
 		static int replacements[];
 		static String oldSentence;
+		public static final String ANSI_RESET = "\u001B[0m";
+		public static final String ANSI_BLACK = "\u001B[30m";
+		public static final String ANSI_RED = "\u001B[31m";
+		public static final String ANSI_GREEN = "\u001B[32m";
+		public static final String ANSI_YELLOW = "\u001B[33m";
+		public static final String ANSI_BLUE = "\u001B[34m";
+		public static final String ANSI_PURPLE = "\u001B[35m";
+		public static final String ANSI_CYAN = "\u001B[36m";
+		public static final String ANSI_WHITE = "\u001B[37m";
 		
 		public static String[] getSentence()
 	    {
 	        Scanner in = new Scanner(System.in);
-	        System.out.print("Input a sentence for a madlib: ");
+	        System.out.print(ANSI_GREEN + "Input a sentence for a madlib: " + ANSI_RESET);
 	        String sentenceString = in.nextLine();
 	        //in.close();
 	        // switch statement with int data type
@@ -32,12 +41,12 @@ public class Madlibs {
 
 	        catch (NumberFormatException e)
 	        {
-	            throw new NumberFormatException("The characters you entered did not match the conversion format.");
+	            throw new NumberFormatException(ANSI_RED + "The characters you entered did not match the conversion format." + ANSI_RESET);
 	        }
 
 	         catch (IllegalArgumentException e)
 	        {
-	            throw new IllegalArgumentException("Conversion format not one of i, b or h.");
+	            throw new IllegalArgumentException(ANSI_RED + "Conversion format not one of i, b or h." + ANSI_RESET);
 	        }
 			return sentence;
 
@@ -46,13 +55,13 @@ public class Madlibs {
 		public static int getToReplace(String prompt)
 	    {
 	        Scanner input = new Scanner(System.in);
-	        System.out.print(prompt);
+	        System.out.print(ANSI_BLUE + prompt + ANSI_RESET);
 	        int toReplace = 999;
 	        toReplace = input.nextInt();
 	        //input.close();
 	        // switch statement with int data type
 	        if(toReplace != (int)toReplace) {
-	        	System.out.print("Must be a numeral");
+	        	System.out.print(ANSI_YELLOW + "Must be a numeral" + ANSI_RESET);
 	        	toReplace = getToReplace(prompt);
 	        }
 			return toReplace;
@@ -61,7 +70,7 @@ public class Madlibs {
 		public static String getWord(int replaceIndex, String prompt)
 	    {
 	        Scanner inWord = new Scanner(System.in);
-	        System.out.print(prompt +sentence[replaceIndex]+"? ");
+	        System.out.print(ANSI_PURPLE + prompt +sentence[replaceIndex]+"? " + ANSI_RESET);
 	        String partOfSpeech = inWord.nextLine();
 	        //inWord.close();
 			return partOfSpeech;
@@ -70,12 +79,11 @@ public class Madlibs {
 		public static void confirm(String prompt)
 	    {
 	        Scanner confirmPrompt = new Scanner(System.in);
-	        System.out.print(prompt);
+	        System.out.print(ANSI_BLUE + prompt + ANSI_RESET);
 	        int toConfirm = confirmPrompt.nextInt();
 	        //input.close();
-	        // switch statement with int data type
-	        
 	    }
+		
 		  
 		/* Function authorSetup
 	   * Author enters a sentence string. It is converted to an array. 
@@ -88,7 +96,7 @@ public class Madlibs {
 		public static void authorSetup(){
 			sentence = getSentence();
 			oldSentence = String.join(" ", sentence);
-			toReplace = getToReplace("How many words to replace? ");
+			toReplace = getToReplace(ANSI_CYAN + "How many words to replace? " + ANSI_RESET);
 			replacements = new int[toReplace];
 			String partOfSpeech = null;
 			for(int i = 0; i < toReplace; i++){
